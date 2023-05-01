@@ -6,6 +6,7 @@ const Order = require("../models/orderModel");
 const Cart = require("../models/cartModel");
 const factory = require("./handlersFactory");
 const User = require("../models/userModel");
+const Product = require("../models/productModel");
 
 /**
  *  @description    Create cach order
@@ -186,7 +187,7 @@ const createCardOrder = async (session) => {
             updateOne: {
                 filter: { _id: item.product },
                 update: {
-                    $inc: { quantity: -item.quantity, sold: item.quantity },
+                    $inc: { quantity: -item.quantity, sold: +item.quantity },
                 },
             },
         }));
