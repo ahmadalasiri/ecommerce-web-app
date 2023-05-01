@@ -5,7 +5,7 @@ const ApiError = require("../utils/apiError");
 const Order = require("../models/orderModel");
 const Cart = require("../models/cartModel");
 const factory = require("./handlersFactory");
-const Product = require("../models/productModel");
+const User = require("../models/userModel");
 
 /**
  *  @description    Create cach order
@@ -34,8 +34,8 @@ exports.createCachOrder = asyncHandler(async (req, res, next) => {
         shippingAddress: req.body.shippingAddress,
         totalOrderPrice,
     });
+    // 4-   Decrement product quantity, increment product sold
     if (order) {
-        // 4-   Decrement product quantity, increment product sold
         const bulkOption = cart.cartItems.map((item) => ({
             updateOne: {
                 filter: { _id: item.product },
@@ -162,6 +162,40 @@ exports.checkoutSession = asyncHandler(async (req, res, next) => {
     res.status(200).json({ status: "success", session });
 });
 
+const createCardOrder = async (session) => {
+    const cartId = session.client_reference_id;
+    const shippingAddress = session.metadata;
+    const orderPrice = session.display_item[0].amount / 100;
+
+    const cart = await Cart.findById(cartId);
+    const user = await User.findOne({ email: session.customer_email });
+
+    // 3-   Create order with default payment method (cach)
+    const order = await Order.create({
+        user: user._id,
+        cartItems: cart.cartItems,
+        shippingAddress,
+        totalOrderPrice: orderPrice,
+        isPaid: true,
+        paidAt: Date.now(),
+        paymentMethodPrice: "card",
+    });
+    // 4-   Decrement product quantity, increment product sold
+    if (order) {
+        const bulkOption = cart.cartItems.map((item) => ({
+            updateOne: {
+                filter: { _id: item.product },
+                update: {
+                    $inc: { quantity: -item.quantity, sold: item.quantity },
+                },
+            },
+        }));
+        await Product.bulkWrite(bulkOption, {});
+
+        // 5-   Clear cart
+        await Cart.findByIdAndDelete(cartId);
+    }
+};
 exports.webhookCheckout = (req, res) => {
     const sig = req.headers["stripe-signature"];
 
@@ -177,6 +211,7 @@ exports.webhookCheckout = (req, res) => {
         res.status(400).send(`Webhook Error: ${err.message}`);
     }
     if (event.type === "checkout.session.completed") {
-        console.log("create order here...");
+        createCardOrder(event.data.object);
     }
+    res.status(200).json({ received: true });
 };
