@@ -1,8 +1,9 @@
 const { check, body } = require("express-validator");
+const slugify = require("slugify");
+
 const validatorMiddleware = require("../../middleware/validatorMiddleware");
 const Category = require("../../models/categoryModel");
 const SubCategory = require("../../models/subCategoryModel");
-const slugify = require("slugify");
 
 exports.createProductValidator = [
     check("title")
@@ -50,7 +51,7 @@ exports.createProductValidator = [
         .optional()
         .isArray()
         .withMessage("colors shoude be array of string"),
-    check("imageCover").notEmpty().withMessage("imagecover is required"),
+    check("imageCover").optional(),
     check("images")
         .optional()
         .isArray()
@@ -88,7 +89,7 @@ exports.createProductValidator = [
             await SubCategory.find({
                 category: req.body.category,
             }).then((subcategories) => {
-                let subcategoriesInDB = [];
+                const subcategoriesInDB = [];
                 subcategories.forEach((subcategory) => {
                     subcategoriesInDB.push(subcategory._id.toString());
                 });

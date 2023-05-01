@@ -13,7 +13,7 @@ exports.deleteOne = (Model) =>
         }
 
         // Trigger "remove" event when update document to get review details
-        Model.remove();
+        // Model.remove();
         res.status(204).send();
     });
 
