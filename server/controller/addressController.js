@@ -29,7 +29,7 @@ exports.addAddress = asyncHandler(async (req, res, next) => {
  *  @access         Protected/User
  */
 exports.deleteAddress = asyncHandler(async (req, res, next) => {
-    // $pull => remove address object from user addresses  array if address  exist
+    // $pull => remove address object from user addresses array if address  exist
     const user = await User.findByIdAndUpdate(
         req.user._id,
         {

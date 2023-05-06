@@ -19,7 +19,7 @@ const { webhookCheckout } = require("./server/controller/orderController");
 // Connect to db
 dbConnection();
 
-// epress app
+// express app
 const app = express();
 
 // Enable other domains to access your application
