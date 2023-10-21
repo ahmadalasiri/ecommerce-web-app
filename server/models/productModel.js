@@ -40,12 +40,12 @@ const productSchema = mongoose.Schema(
 
         imageCover: {
             type: String,
-            // required: [true, "Product Image cover is required"],
+            required: [true, "Product Image cover is required"],
         },
         image: [String],
 
         category: {
-            type: mongoose.Schema.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Category",
             required: [true, "Product must belong to main category"],
         },

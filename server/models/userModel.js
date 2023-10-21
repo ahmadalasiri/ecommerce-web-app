@@ -42,7 +42,7 @@ const userSchema = mongoose.Schema(
         wishlist: [{ type: mongoose.Schema.ObjectId, ref: "Product" }],
         addresses: [
             {
-                id: { type: mongoose.Schema.Types.ObjectId },
+                id: { type: mongoose.Schema.ObjectId },
                 alias: String,
                 details: String,
                 phone: String,

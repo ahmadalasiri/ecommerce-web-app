@@ -10,7 +10,7 @@ exports.createUserValidator = [
         .notEmpty()
         .withMessage("User name is required")
         .isLength({ min: 2 })
-        .withMessage("User name is too long")
+        .withMessage("User name is too short")
         .custom((val, { req }) => {
             req.body.slug = slugify(val);
             return true;

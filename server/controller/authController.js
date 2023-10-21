@@ -53,7 +53,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
         req.headers.authorization &&
         req.headers.authorization.startsWith("Bearer")
     ) {
-        token = req.headers.authorization.split("  ")[1];
+        token = req.headers.authorization.split(" ")[1];
     }
     if (!token) {
         return next(
@@ -102,14 +102,14 @@ exports.protect = asyncHandler(async (req, res, next) => {
 // ["admin", "manager"]
 exports.allowedTo =
     (...roles) =>
-    (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
-            return next(
-                new ApiError("You are not allowed to access this route", 403)
-            );
-        }
-        next();
-    };
+        (req, res, next) => {
+            if (!roles.includes(req.user.role)) {
+                return next(
+                    new ApiError("You are not allowed to access this route", 403)
+                );
+            }
+            next();
+        };
 
 /**
  *  @description  Forgot password
