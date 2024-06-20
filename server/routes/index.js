@@ -1,4 +1,5 @@
 // Routes
+const swaggerUi = require("swagger-ui-express");
 const categoryRouter = require("./categoryRoute");
 const subCategoryRouter = require("./subCategoryRoute");
 const brandRouter = require("./brandRoute");
@@ -12,7 +13,14 @@ const couponRoute = require("./couponRoute");
 const cartRoute = require("./cartRoute");
 const orderRoute = require("./orderRoute");
 
+
+const swaggerDocument = require("../../docs/swagger");
+
 const mountRoutes = (app) => {
+    app.use("/", (req, res) => {
+        res.send("Welcome to the E-commerce API");
+    });
+    app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     app.use("/api/v1/categories", categoryRouter);
     app.use("/api/v1/subCategories", subCategoryRouter);
     app.use("/api/v1/brands", brandRouter);

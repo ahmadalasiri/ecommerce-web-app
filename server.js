@@ -5,8 +5,9 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cors = require("cors");
 const compression = require("compression");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+
 
 dotenv.config({ path: "config.env" });
 const ApiError = require("./server/utils/apiError");
@@ -45,7 +46,7 @@ app.use(express.json({ limit: "30kb" }));
 app.use(express.static(path.join(__dirname, "uploads")));
 
 if (process.env.NODE_ENV === "development") {
-    app.use(morgan("tiny"));
+    app.use(morgan("dev"));
 }
 
 const limiter = rateLimit({
