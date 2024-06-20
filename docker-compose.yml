@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+    node-app:
+        container_name: ecommerce-app-container
+        build: .
+        # volumes:
+        #     - ./server:/usr/src/app:ro
+        ports:
+            - "3000:3000"
