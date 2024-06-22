@@ -17,9 +17,7 @@ const orderRoute = require("./orderRoute");
 const swaggerDocument = require("../../docs/swagger");
 
 const mountRoutes = (app) => {
-    app.use("/", (req, res) => {
-        res.send("Welcome to the E-commerce API");
-    });
+
     app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     app.use("/api/v1/categories", categoryRouter);
     app.use("/api/v1/subCategories", subCategoryRouter);
@@ -33,6 +31,9 @@ const mountRoutes = (app) => {
     app.use("/api/v1/coupons", couponRoute);
     app.use("/api/v1/cart", cartRoute);
     app.use("/api/v1/orders", orderRoute);
+    app.use("/", (req, res) => {
+        res.send("Welcome to the E-commerce API");
+    });
 };
 
 module.exports = mountRoutes;
