@@ -6,9 +6,6 @@
 -   `Express.js`: A fast, unopinionated, minimalist web framework for Node.js, used for building APIs and web applications.
 -   `MongoDB`: A NoSQL database used for storing data in a flexible, JSON-like format.
 -   `Mongoose`: An Object Data Modeling (ODM) library for MongoDB and Node.js, used to model application data and interact with the database.
--   `Swagger`: An open-source software framework used to design, build, document, and consume RESTful web services.
--   `Github Actions`: A CI/CD platform used to automate the deployment process, including building, testing, and deploying the application.
--   `Docker`: A containerization platform used to package the backend of `ecommerce` and its dependencies into a lightweight, portable container.
 -   `Render`: A cloud platform for deploying and scaling web applications, providing simplicity and scalability.
 -   `Stripe`: A payment gateway used to facilitate secure online payments between customers and Admin.
 -   `Multer`: A middleware used to handle file uploads in Node.js applications, used to upload images and files to the server.
@@ -16,14 +13,6 @@
 -   `Winston`: A logging library used to log application behavior and performance to track errors and debug issues.
 -   `Morgan`: An HTTP request logger middleware used to log HTTP requests and responses for debugging and monitoring.
 -   `Prettier`: An opinionated code formatter used to enforce a consistent code style and improve code readability.
-
-<!-- # Deployment Stack (CI/CD) 🚀
-
-The backend of `ecommerce` is deployed using the following technologies:
-
--   `GitHub Actions`: A CI/CD platform used to automate the deployment process, including building, testing, and deploying the application.
--   `Docker`: A containerization platform used to package the backend of `ecommerce` and its dependencies into a lightweight, portable container.
--   `Render`: A cloud platform for deploying and scaling web applications, providing simplicity and scalability. -->
 
 # Features 📌
 
